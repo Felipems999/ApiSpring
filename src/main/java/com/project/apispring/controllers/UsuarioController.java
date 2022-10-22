@@ -27,19 +27,28 @@ public class UsuarioController {
         return this.usuarioRepository.findAll();
     }
 
-    @GetMapping("/{id}")
-    public Optional<Usuario> getUsuario(@PathParam("{id}") Long id){
+    @GetMapping("/usuario/{id}")
+    public Optional<Usuario> getUsuario(@PathVariable("id") Long id){
         return this.usuarioRepository.findById(id);
     }
 
     @PostMapping("/usuarios")
-    public Usuario postUsuario(Usuario usuario){
+    public Usuario postUsuario(@RequestBody Usuario usuario){
         this.usuarioRepository.save(usuario);
         return usuario;
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteUsuario(@PathParam("{id}") Long id){
+    @PostMapping("/{usuario}")
+    public void putUsuario(@PathVariable("id") Long id){
+        for(Usuario u : this.usuarioRepository.findAll()) {
+            if (u.getId().equals(id)) {
+                this.usuarioRepository.deleteById(id);
+            }
+        }
+    }
+
+    @DeleteMapping("/usuarios/{id}")
+    public void deleteUsuario(@PathVariable("id") Long id){
         this.usuarioRepository.deleteById(id);
     }
 
