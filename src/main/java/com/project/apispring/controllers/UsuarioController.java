@@ -39,7 +39,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    public void putUsuario(@PathParam("{id}") Long id){
+    public void deleteUsuario(@PathParam("{id}") Long id){
         this.usuarioRepository.deleteById(id);
     }
 
