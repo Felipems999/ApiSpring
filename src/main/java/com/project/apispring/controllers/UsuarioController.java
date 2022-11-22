@@ -1,55 +1,59 @@
 package com.project.apispring.controllers;
 
+import com.project.apispring.exceptions.UsuarioNotNullException;
+import com.project.apispring.exceptions.UsuarioNullException;
 import com.project.apispring.models.Usuario;
 import com.project.apispring.repositories.UsuarioRepository;
+import com.project.apispring.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Application;
-import javax.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/usuarios")
 public class UsuarioController {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuarioService usuarioService;
 
-    @GetMapping("/usuarios")
+    @GetMapping
     public List<Usuario> getUsuarios(){
-        return this.usuarioRepository.findAll();
+        return this.usuarioService.buscarTodosOsUsuarios();
     }
 
     @GetMapping("/usuario/{id}")
-    public Optional<Usuario> getUsuario(@PathVariable("id") Long id){
-        return this.usuarioRepository.findById(id);
+    public Object getUsuario(@PathVariable("id") Long id){
+        return this.usuarioService.buscarUsuarioPorId(id);
     }
 
-    @PostMapping("/usuarios")
+    @PostMapping("/novousuario")
     public Usuario postUsuario(@RequestBody Usuario usuario){
-        this.usuarioRepository.save(usuario);
+        this.usuarioService.salvarUsuario(usuario);
         return usuario;
     }
 
-    @PostMapping("/{usuario}")
-    public void putUsuario(@PathVariable("id") Long id){
-        for(Usuario u : this.usuarioRepository.findAll()) {
-            if (u.getId().equals(id)) {
-                this.usuarioRepository.deleteById(id);
-            }
-        }
+    @PutMapping("atualiza/{id}")
+    public Usuario putUsuario(@RequestBody Usuario usuario, @PathVariable("id") Long id){
+
+        return usuario;
     }
 
-    @DeleteMapping("/usuarios/{id}")
+    @PatchMapping("/patch")
+    public Usuario patchUsuario(){
+        return new Usuario();
+    }
+
+
+    @DeleteMapping("/deletar/{id}")
     public void deleteUsuario(@PathVariable("id") Long id){
-        this.usuarioRepository.deleteById(id);
+
+        if(this.usuarioService.buscarUsuarioPorId(id) == null)
+            throw new UsuarioNullException();
+
+        this.usuarioService.deletarUsuarioPorId(id);
     }
 
 }
