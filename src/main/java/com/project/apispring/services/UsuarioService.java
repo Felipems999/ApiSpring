@@ -16,7 +16,7 @@ public interface UsuarioService extends Service{
 
     public Usuario atualizarUsuario(Long id, Usuario usuario);
 
-    public Usuario atualizarDadosUsuario(Long id, Usuario usuario);
+    public Usuario atualizarDados(Long id, Usuario usuario);
 
     public void deletarUsuarioPorId(Long id);
 }

@@ -35,23 +35,16 @@ public class UsuarioController {
     }
 
     @PutMapping("/atualiza/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public Usuario putUsuario(@PathVariable("id") Long id, @RequestBody Usuario usuario){
-
-        this.usuarioService.atualizarUsuario(id, usuario);
-
-        return usuario;
+       return this.usuarioService.atualizarUsuario(id, usuario);
     }
 
     @PatchMapping("/atualizardados/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public Usuario patchUsuario(@PathVariable("id") Long id, @RequestBody Usuario usuario){
-        return new Usuario();
+        return this.usuarioService.atualizarDados(id, usuario);
     }
 
-
     @DeleteMapping("/deletar/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public void deleteUsuario(@PathVariable("id") Long id){
 
         if(this.usuarioService.buscarUsuarioPorId(id).isEmpty())
