@@ -1,33 +1,20 @@
 package com.project.apispring.services;
 
 import com.project.apispring.models.Usuario;
-import com.project.apispring.repositories.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
-@Service
-public class UsuarioService {
+public interface UsuarioService {
+    List<Usuario> buscarTodosOsUsuarios();
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    public Optional<Usuario> buscarUsuarioPorId(Long id);
 
-    public List<Usuario> buscarTodosOsUsuarios(){
-        return this.usuarioRepository.findAll();
-    }
+    public Usuario salvarUsuario(Usuario usuario);
 
-    public Object buscarUsuarioPorId(Long id){
-        return this.usuarioRepository.findById(id);
-    }
+    public Usuario atualizarUsuario(Long id, Usuario usuario);
 
-    public void salvarUsuario(Usuario usuario) {
-        this.usuarioRepository.save(usuario);
-    }
+    public Usuario atualizarDadosUsuario(Long id, Usuario usuario);
 
-    public void deletarUsuarioPorId(Long id) {
-        this.usuarioRepository.deleteById(id);
-    }
+    public void deletarUsuarioPorId(Long id);
 }
