@@ -1,11 +1,13 @@
 package com.project.apispring.services;
 
 import com.project.apispring.models.Usuario;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface UsuarioService {
+@Service
+public interface UsuarioService extends Service{
     List<Usuario> buscarTodosOsUsuarios();
 
     public Optional<Usuario> buscarUsuarioPorId(Long id);

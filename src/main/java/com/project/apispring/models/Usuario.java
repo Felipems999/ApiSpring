@@ -5,20 +5,22 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
-@Entity
+@Entity(name = "usuario")
 @Getter
 @Setter
+@Table(name = "usuario")
 public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @GenericGenerator(name = "increment", strategy = "increment")
+    @Column(name = "id_usuario")
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "nome_usuario")
     private String nome;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "nasc_usuario")
     private String nascimento;
-    @Column
+    @Column(name = "genero_usuario")
     private String genero;
 
     public Usuario(){

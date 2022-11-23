@@ -6,6 +6,7 @@ import com.project.apispring.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,5 +42,15 @@ public class UsuarioServiceImplementation implements UsuarioService {
 
     public void deletarUsuarioPorId(Long id) {
         this.usuarioRepository.deleteById(id);
+    }
+
+    @Override
+    public String value() {
+        return null;
+    }
+
+    @Override
+    public Class<? extends Annotation> annotationType() {
+        return null;
     }
 }
